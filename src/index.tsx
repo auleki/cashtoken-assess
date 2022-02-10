@@ -1,12 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { BrowserRouter as Router } from "react-router-dom";
+import {Auth0Provider} from "@auth0/auth0-react";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import AuthContextProvider from "./context/AuthContextProvider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Auth0Provider 
+      clientId={process.env.REACT_APP_CLIENT_ID || ""} 
+      domain={process.env.REACT_APP_DOMAIN || ""}
+      redirectUri={`${window.location.origin}/callback`}
+    >
+      <AuthContextProvider>
+        <Router>
+          <App />
+        </Router>
+      </AuthContextProvider>
+    </Auth0Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
