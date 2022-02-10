@@ -1,17 +1,18 @@
 ﻿import LoginButton from "./LoginButton";
-import {useContext} from "react";
-import {AuthContext} from "../context/AuthContextProvider";
+import { useMatch } from "react-router-dom";
 
 
 const Navbar = () => {
-		const context = useContext(AuthContext);
-		console.log(context)
+		const match = useMatch("/callback/")
+		console.log("MATCH? ", match)
 		return (
 				<nav style={{ display: "flex", justifyContent: "space-between" }}>
 						<div>
 								<h1>Logo</h1>
 						</div>
-						{context?.userAuthenticated? "John Doe" : <LoginButton text="Login"/>}
+						<LoginButton text="Login"/>
+						{/*{match.pattern.pathNameBase === "/callback" "John Doe" : <LoginButton text="Login"/>}*/}
+
 				</nav>
 		)
 }
